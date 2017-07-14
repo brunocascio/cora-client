@@ -1,0 +1,23 @@
+.cora-overlay {
+  background: rgba(0,0,0,0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1 !important;
+}
+
+.cora-can-extract {
+  z-index: 2 !important;
+  background: white;
+  padding: 10px;
+  border: 2px solid #aa0000;
+  overflow: visible;
+  position: relative;
+  color: #333;
+  -webkit-transition: all .5s ease-in 1s;
+  -moz-transition: all .5s ease-in 1s;
+  transition: all .5s ease-in 1s;
+}
