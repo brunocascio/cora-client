@@ -4,10 +4,6 @@
   "version": "0.1",
   "description": "Items Extractor",
   "icons": { "128": "icon_128.png" },
-  "background": {
-    "persistent": false,
-    "scripts": ["bg.js"]
-  },
   "permissions": [
     "tabs",
     "http://*/*",
@@ -21,8 +17,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "css": ["extractor.css"],
-      "js": ["jquery.min.js", "contentscript.js"],
+      "js": ["bundle.js"],
       "run_at": "document_end"
     }
   ]
