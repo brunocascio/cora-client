@@ -23,19 +23,33 @@ export default class ItemsCollectorUI {
   }
 
   async highlightExtractedItems() {
-    $('body').css({'z-index': 0});
-    $('body').prepend($('<div class="cora-overlay"></div>'));
+    $('body').append($('<div class="cora-overlay"></div>'));
 
     this.selectorsArray = await this.extractor.extract();
 
-    this.selectorsArray.map(selectors =>
-      Object.values(selectors)
-        .forEach(value => $(value).addClass('cora-can-extract'))
+    this.selectorsArray.map(selectors => Object.values(selectors)
+      .forEach(value => this._highlightItem($(value)))
     );
+  }
 
-    // this.extractor
-    //   .extract()
-    //   .map((item) => $(item).addClass('cora-can-extract'));
+  _highlightItem($item) {
+    const position = $item.offset();
+    const width = $item.width() - 50;
+    const height = $item.height();
+    const itemText = $item.html();
+
+    const $input = $(`
+      <div class="cora-can-extract" id="cora-${$item.attr('id')}">
+        <div class="content">${itemText}</div>
+        <div class="check">
+          <input type="checkbox" checked/>
+        </div>
+      </div>
+    `)
+    .css(position)
+    .css({width});
+
+    $('body').append($input);
   }
 
   publishOnlyThisItem(item) {

@@ -6,18 +6,29 @@
   right: 0;
   width: 100%;
   height: 100%;
-  z-index: 1 !important;
+  z-index: 999999999999 !important;
 }
 
 .cora-can-extract {
-  z-index: 2 !important;
-  background: white;
-  padding: 10px;
-  border: 2px solid #aa0000;
-  overflow: visible;
-  position: relative;
-  color: #333;
-  -webkit-transition: all .5s ease-in 1s;
-  -moz-transition: all .5s ease-in 1s;
-  transition: all .5s ease-in 1s;
+  z-index: 9999999999999 !important;
+  position: absolute;
+  background: #fafafa;
+  padding: 10px 40px 10px 10px;
+  border: 2px dashed #DE5833;
+  overflow: hidden;
+}
+
+.cora-can-extract .check {
+  position: absolute;
+  background: #e2e2e2;
+  height: inherit;
+  padding: 7px 10px;
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+
+.cora-can-extract input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
 }
