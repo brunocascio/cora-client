@@ -14,18 +14,32 @@ export default class ItemsCollectorUI {
     // this.itemsRepo = new ItemsRepo();
   }
 
-  hasTemplates() {
-    return this.extractor.canExtract();
+  async run() {
+    if (await this.hasTemplates()) {
+      this.informTemplatesAvailable();
+    } else {
+      this.informNoTemplatesAvailable();
+    }
   }
 
-  informNoTemplateAvailable() {
-    // TODO: change the icon
+  async hasTemplates() {
+    return await this.extractor.canExtract();
+  }
+
+  informTemplatesAvailable() {
+    chrome.runtime.sendMessage({ message: "templatesFound" });
+  }
+
+  informNoTemplatesAvailable() {
+    chrome.runtime.sendMessage({ message: "templatesNotFound" });
   }
 
   async highlightExtractedItems() {
     $('body').append($('<div class="cora-overlay"></div>'));
 
     this.selectorsArray = await this.extractor.extract();
+
+    this.showItemsCount(this.selectorsArray.length);
 
     this.selectorsArray.map(selectors => Object.values(selectors)
       .forEach(value => this._highlightItem($(value)))
@@ -44,10 +58,9 @@ export default class ItemsCollectorUI {
         <div class="check">
           <input type="checkbox" checked/>
         </div>
-      </div>
-    `)
-    .css(position)
-    .css({width});
+      </div>`)
+      .css(position)
+      .css({ width });
 
     $('body').append($input);
   }

@@ -1,10 +1,19 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 1,
   "name": "cora-items-extractor",
   "version": "0.1",
   "description": "Items Extractor",
-  "icons": { "128": "icon_128.png" },
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
   "permissions": [
+    "background",
     "tabs",
     "http://*/*",
     "https://*/*"
@@ -16,8 +25,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["bundle.js"],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "bundle.js"
+      ],
       "run_at": "document_end"
     }
   ]

@@ -9,9 +9,13 @@ export default class ItemsExtractor {
   }
 
   async canExtract() {
-    // TODO: check if exists some template
-    const req = await this.templateRepo.getTemplatesFor(this.uri);
-    return (req.status == 200) && (!!req.data.response.length);
+    try {
+      const req = await this.templateRepo.getTemplatesFor(this.uri);
+      return (req.status == 200) && (!!req.data.response.length);
+    } catch (error) {
+      console.error(error)
+      return false;
+    }
   }
 
   async extract() {

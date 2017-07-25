@@ -18,14 +18,18 @@
   overflow: hidden;
 }
 
+.cora-can-extract .content {
+  padding: 5px 10px;
+}
+
 .cora-can-extract .check {
   position: absolute;
   background: #e2e2e2;
-  height: inherit;
   padding: 7px 10px;
   height: 100%;
   right: 0;
   top: 0;
+  line-height: 38px;
 }
 
 .cora-can-extract input[type="checkbox"] {
