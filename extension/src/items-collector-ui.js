@@ -11,11 +11,14 @@ export default class ItemsCollectorUI {
     this.uri = uri;
     this.extractor = new IExtractor(uri);
     this.selectorsArray = [];
+    this.highlighted = false;
+    this.inputs = [];
     // this.itemsRepo = new ItemsRepo();
   }
 
   async run() {
-    if (await this.hasTemplates()) {
+    const success = await this.hasTemplates();
+    if (success) {
       this.informTemplatesAvailable();
     } else {
       this.informNoTemplatesAvailable();
@@ -23,7 +26,9 @@ export default class ItemsCollectorUI {
   }
 
   async hasTemplates() {
-    return await this.extractor.canExtract();
+    this.hasTemplates = await this.extractor.canExtract();
+
+    return this.hasTemplates;
   }
 
   informTemplatesAvailable() {
@@ -34,16 +39,29 @@ export default class ItemsCollectorUI {
     chrome.runtime.sendMessage({ message: "templatesNotFound" });
   }
 
+  showItemsCount(items) {
+    const total = this.selectorsArray.reduce((sum, obj) => {
+      return sum + Object.keys(obj).length
+    }, 0);
+
+    chrome.runtime.sendMessage({ message: "setCountBadge", total });
+  }
+
   async highlightExtractedItems() {
+    if (this.highlighted || !this.hasTemplates)
+      return;
+
     $('body').append($('<div class="cora-overlay"></div>'));
 
     this.selectorsArray = await this.extractor.extract();
 
-    this.showItemsCount(this.selectorsArray.length);
+    this.showItemsCount(this.selectorsArray);
 
     this.selectorsArray.map(selectors => Object.values(selectors)
       .forEach(value => this._highlightItem($(value)))
     );
+
+    this.highlighted = true;
   }
 
   _highlightItem($item) {
@@ -62,15 +80,31 @@ export default class ItemsCollectorUI {
       .css(position)
       .css({ width });
 
+    this.inputs.push($input);
+
     $('body').append($input);
   }
 
   publishOnlyThisItem(item) {
     // this.itemsRepo = new ItemsRepo();
+    console.log('It will push an item.');
   }
 
   publishAllExtractedItems() {
     // this.itemsRepo = new ItemsRepo();
+    console.log('It will push items.');
+    const objToPush = {};
+    this.inputs
+      .forEach(($el) => {
+        const root = $el.find('input[type="checkbox"]:checked').closest('.cora-can-extract');
+        const key = $el.attr('id').replace('cora-', '');
+        const text = root.find('.content').html();
+        objToPush[key] = text;
+      });
+
+    console.log(objToPush);
+
+    // TODO: push to the server.......
   }
 
   urlChanged(uri) {

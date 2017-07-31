@@ -18,6 +18,7 @@
     "http://*/*",
     "https://*/*"
   ],
+  "options_page": "options.html",
   "browser_action": {
     "default_title": "Cora Extractor",
     "default_icon": "icon_19.png",

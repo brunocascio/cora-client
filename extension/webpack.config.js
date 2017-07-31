@@ -33,7 +33,9 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([
-      { from: __dirname + '/popup.html' },
+      { from: __dirname + '/*.html' },
+      { from: __dirname + '/*.js' },
+      { from: __dirname + '/*.css' },
       { from: __dirname + '/manifest.json' },
       { from: __dirname + '/*.png' }
     ])

@@ -1,0 +1,32 @@
+* {
+  outline: none;
+}
+
+.popup-wrapper {
+  width: 150px;
+  color: #333;
+}
+
+.list {
+  padding: 0;
+}
+
+.list li {
+  list-style: none;
+}
+
+.list li + li {
+  margin-top: 5px;
+}
+
+.popup-wrapper button {
+  border: 0;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.popup-wrapper button:hover {
+  background: #e2e2e2;
+  cursor: pointer;
+}
