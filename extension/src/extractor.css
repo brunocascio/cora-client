@@ -9,6 +9,32 @@
   z-index: 999999999999 !important;
 }
 
+.cora-actions {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.cora-actions button {
+  border: 0;
+  background: #fff;
+  color: #333;
+  padding: 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.cora-actions button:hover {
+  cursor: pointer;
+  background: #f2f2f2; 
+}
+
+#cora-button-cancel {
+  background: #E62117;
+  color: #fff;
+}
+
 .cora-can-extract {
   z-index: 9999999999999 !important;
   position: absolute;

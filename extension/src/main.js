@@ -1,19 +1,11 @@
-import ItemsCollectorUI from './items-collector-ui';
+import ItemsCollector from './items-collector';
 
-const collector = new ItemsCollectorUI(window.location.href);
+const collector = new ItemsCollector(window.location.href);
 
-collector.run();
-
-chrome.runtime.onMessage.addListener((request, sender, senderResponse) => {
-  switch (request.type) {
-    case 'HIGHLIGHT':
-      collector.highlightExtractedItems();
-      senderResponse(true);
-      break;
-    case 'PUSH_ITEMS':
-      collector.publishAllExtractedItems();
-      break;
-    default:
-      break;
-  }
-});
+if (typeof chrome !== undefined) {
+  // is chrome
+  require('./chrome')(collector);
+} else {
+  // is firefox
+  // TODO: code for mozilla :P
+}

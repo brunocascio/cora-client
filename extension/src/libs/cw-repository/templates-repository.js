@@ -3,9 +3,8 @@ import axios from 'axios';
 export default class TemplatesRepository {
 
   static getTemplatesFor(uri) {
-    return axios.get(`
-      ${TemplatesRepository.TEMPLATES_URI}/matching?url=${uri}
-    `);
+    const endpoint = `${TemplatesRepository.TEMPLATES_URI}/matching?url=${uri}`;
+    return axios.get(endpoint).then(res => res.data.response);
   }
 }
 
